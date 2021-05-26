@@ -1,8 +1,8 @@
 {
   "name": "typescript-template",
+  "homepage": "http://jj2020driver.github.io/typescript-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://jj2020driver.github.io/typescript-template",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
