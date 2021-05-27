@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/typescript-template/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/typescript-template/static/js/main.4a53e7ad.chunk.js",
-    "main.js.map": "/typescript-template/static/js/main.4a53e7ad.chunk.js.map",
-    "runtime-main.js": "/typescript-template/static/js/runtime-main.0e61464d.js",
-    "runtime-main.js.map": "/typescript-template/static/js/runtime-main.0e61464d.js.map",
-    "static/js/2.5226acb9.chunk.js": "/typescript-template/static/js/2.5226acb9.chunk.js",
-    "static/js/2.5226acb9.chunk.js.map": "/typescript-template/static/js/2.5226acb9.chunk.js.map",
-    "static/js/3.8a74e762.chunk.js": "/typescript-template/static/js/3.8a74e762.chunk.js",
-    "static/js/3.8a74e762.chunk.js.map": "/typescript-template/static/js/3.8a74e762.chunk.js.map",
+    "main.css": "/typescript-template/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/typescript-template/static/js/main.66172f7b.chunk.js",
+    "main.js.map": "/typescript-template/static/js/main.66172f7b.chunk.js.map",
+    "runtime-main.js": "/typescript-template/static/js/runtime-main.816945df.js",
+    "runtime-main.js.map": "/typescript-template/static/js/runtime-main.816945df.js.map",
+    "static/js/2.7d66f420.chunk.js": "/typescript-template/static/js/2.7d66f420.chunk.js",
+    "static/js/2.7d66f420.chunk.js.map": "/typescript-template/static/js/2.7d66f420.chunk.js.map",
+    "static/js/3.7297227e.chunk.js": "/typescript-template/static/js/3.7297227e.chunk.js",
+    "static/js/3.7297227e.chunk.js.map": "/typescript-template/static/js/3.7297227e.chunk.js.map",
     "index.html": "/typescript-template/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/typescript-template/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.5226acb9.chunk.js.LICENSE.txt": "/typescript-template/static/js/2.5226acb9.chunk.js.LICENSE.txt"
+    "static/css/main.6dea0f05.chunk.css.map": "/typescript-template/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.7d66f420.chunk.js.LICENSE.txt": "/typescript-template/static/js/2.7d66f420.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.0e61464d.js",
-    "static/js/2.5226acb9.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.4a53e7ad.chunk.js"
+    "static/js/runtime-main.816945df.js",
+    "static/js/2.7d66f420.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.66172f7b.chunk.js"
   ]
 }
