@@ -1,12 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
 
 const Home = () => {
   return (
-    <>
-      <Link to="/">Sign In</Link>
-      <div>Home</div>
-    </>
+    <Container maxWidth="md">
+      <Box py={4}>
+        <Link to="/">Sign In</Link>
+      </Box>
+    </Container>
   )
 }
 
