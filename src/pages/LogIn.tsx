@@ -21,7 +21,7 @@ const LogIn = () => {
     <Container maxWidth="md">
       <Box py={4}>
         <Box style={{ maxWidth: 550 }}>
-          <Link to="/home">Home</Link>
+          <Link to="/home">Home</Link>, <Link to="/counter">Counter</Link>
           <Box mt={2.5}>
             <form onSubmit={formik.handleSubmit}>
               <TextField
