@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import styles from './Counter.module.css'
 
 import { useAppSelector, useAppDispatch } from '../redux/hooks'
 import {
@@ -9,8 +10,7 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
-} from '../redux/reducers/counterSlice'
-import styles from './Counter.module.css'
+} from '../redux/reducers/counter'
 
 function Counter() {
   const count = useAppSelector(selectCount)
