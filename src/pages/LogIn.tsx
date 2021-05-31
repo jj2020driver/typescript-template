@@ -19,12 +19,14 @@ const LogIn = () => {
       password: '',
     },
     onSubmit: async (values, actions) => {
-      console.log(values)
+      actions.setSubmitting(true)
       try {
         const result = await dispatch(loginAsync(values))
         await unwrapResult(result)
       } catch (error) {
-        console.log(error)
+        console.log(error.message)
+      } finally {
+        actions.setSubmitting(false)
       }
     },
   })

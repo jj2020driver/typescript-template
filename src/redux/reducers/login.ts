@@ -22,9 +22,17 @@ const initialState: Login = {
 
 export const loginAsync = createAsyncThunk(
   'login/fetchLogin',
-  async (credentials: object) => {
-    const response = await fetchLogin(credentials)
-    return response.data
+  async (credentials: object, thunkAPI) => {
+    try {
+      const response = await fetchLogin(credentials)
+      return response.data
+    } catch (error) {
+      // Use `err.response.data` as `action.payload` for a `rejected` action,
+      // by explicitly returning it using the `rejectWithValue()` utility
+      error.response.data.code = error.response.status
+      error.response.data.name = error.response.statusText
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
   }
 )
 
