@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useFormik } from 'formik'
 
+import { unwrapResult } from '@reduxjs/toolkit'
 import { useAppDispatch } from '../redux/hooks'
 import { loginAsync } from '../redux/reducers/login'
 
@@ -18,7 +19,12 @@ const LogIn = () => {
     },
     onSubmit: async (values, actions) => {
       console.log(values)
-      dispatch(loginAsync(values))
+      try {
+        const result = await dispatch(loginAsync(values))
+        const unwrappedResult = await unwrapResult(result)
+      } catch (error) {
+        console.log(error)
+      }
     },
   })
 
