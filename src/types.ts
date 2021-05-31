@@ -24,3 +24,8 @@ export interface User {
   roles: []
   updated_at: string | null
 }
+
+export interface LoginForm {
+  email: string
+  password: string
+}

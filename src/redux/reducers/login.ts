@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchLogin } from '../api/login'
 import { RootState } from '../store'
-import { User } from '../../types'
+import { User, LoginForm } from '../../types'
 
 export interface Auth {
   access_token: string
@@ -22,7 +22,7 @@ const initialState: Login = {
 
 export const loginAsync = createAsyncThunk(
   'login/fetchLogin',
-  async (credentials: object, thunkAPI) => {
+  async (credentials: LoginForm, thunkAPI) => {
     try {
       const response = await fetchLogin(credentials)
       return response.data
