@@ -1,13 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchLogin } from '../api/login'
+import { RootState } from '../store'
 
+export interface Auth {
+  access_token: string
+  user: object
+}
 export interface Login {
-  auth: object | null | undefined
+  auth: Auth
   status: 'idle' | 'loading' | 'failed'
 }
 
 const initialState: Login = {
-  auth: null,
+  auth: {
+    access_token: '',
+    user: {},
+  },
   status: 'idle',
 }
 
@@ -30,12 +38,15 @@ export const loginSlice = createSlice({
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.status = 'idle'
-        state.auth = action.payload
+        state.auth = action.payload as Auth
       })
       .addCase(loginAsync.rejected, (state) => {
         state.status = 'idle'
       })
   },
 })
+
+export const selectToken = (state: RootState) => state.login.auth.access_token
+export const selectUser = (state: RootState) => state.login.auth.user
 
 export default loginSlice.reducer

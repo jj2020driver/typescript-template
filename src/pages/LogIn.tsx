@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
@@ -7,10 +7,11 @@ import Button from '@material-ui/core/Button'
 import { useFormik } from 'formik'
 
 import { unwrapResult } from '@reduxjs/toolkit'
-import { useAppDispatch } from '../redux/hooks'
-import { loginAsync } from '../redux/reducers/login'
+import { useAppSelector, useAppDispatch } from '../redux/hooks'
+import { loginAsync, selectToken } from '../redux/reducers/login'
 
 const LogIn = () => {
+  const token = useAppSelector(selectToken)
   const dispatch = useAppDispatch()
   const formik = useFormik({
     initialValues: {
@@ -21,12 +22,14 @@ const LogIn = () => {
       console.log(values)
       try {
         const result = await dispatch(loginAsync(values))
-        const unwrappedResult = await unwrapResult(result)
+        await unwrapResult(result)
       } catch (error) {
         console.log(error)
       }
     },
   })
+
+  if (token) return <Redirect to="/home" />
 
   return (
     <Container maxWidth="md">

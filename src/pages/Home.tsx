@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <Container maxWidth="md">
       <Box py={4}>
-        <Link to="/">Log In</Link>, <Link to="/counter">Counter</Link>
+        <Link to="/counter">Counter</Link>
       </Box>
     </Container>
   )
