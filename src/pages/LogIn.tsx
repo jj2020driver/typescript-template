@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import { useToasts } from 'react-toast-notifications'
 import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
@@ -13,6 +14,8 @@ import { loginAsync, selectToken } from '../redux/reducers/login'
 const LogIn = () => {
   const token = useAppSelector(selectToken)
   const dispatch = useAppDispatch()
+  const { addToast } = useToasts()
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -24,7 +27,7 @@ const LogIn = () => {
         const result = await dispatch(loginAsync(values))
         await unwrapResult(result)
       } catch (error) {
-        console.log(error.message)
+        addToast(error.message, { appearance: 'error' })
       } finally {
         actions.setSubmitting(false)
       }
