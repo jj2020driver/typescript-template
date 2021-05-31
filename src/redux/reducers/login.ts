@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchLogin } from '../api/login'
 import { RootState } from '../store'
+import { User } from '../../types'
 
 export interface Auth {
   access_token: string
-  user: object
+  user: User | null
 }
 export interface Login {
   auth: Auth
@@ -14,7 +15,7 @@ export interface Login {
 const initialState: Login = {
   auth: {
     access_token: '',
-    user: {},
+    user: null,
   },
   status: 'idle',
 }
@@ -33,7 +34,7 @@ export const loginSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.auth.access_token = ''
-      state.auth.user = {}
+      state.auth.user = null
     },
   },
   extraReducers: (builder) => {
