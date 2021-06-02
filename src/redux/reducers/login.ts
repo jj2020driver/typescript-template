@@ -1,13 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchLogin } from '../api/login'
-import { RootState } from '../store'
-import { User, LoginForm } from '../../types'
+import { AnyAction, Reducer } from 'redux'
+import { Auth } from '../../types'
 
-export interface Auth {
-  access_token: string
-  user: User | null
-}
-export interface Login {
+import type { RootState } from '../store'
+interface Login {
   auth: Auth
   status: 'idle' | 'loading' | 'failed'
 }
@@ -20,49 +15,36 @@ const initialState: Login = {
   status: 'idle',
 }
 
-export const loginAsync = createAsyncThunk(
-  'login/fetchLogin',
-  async (credentials: LoginForm, thunkAPI) => {
-    try {
-      const response = await fetchLogin(credentials)
-      return response.data
-    } catch (error) {
-      // Use `err.response.data` as `action.payload` for a `rejected` action,
-      // by explicitly returning it using the `rejectWithValue()` utility
-      error.response.data.code = error.response.status
-      error.response.data.name = error.response.statusText
-      return thunkAPI.rejectWithValue(error.response.data)
-    }
+const loginReducer: Reducer<Login, AnyAction> = (
+  state = initialState,
+  action
+) => {
+  switch (action.type) {
+    case 'FETCH_LOGIN_PENDING':
+      return {
+        ...state,
+        status: 'loading',
+      }
+    case 'FETCH_LOGIN_FULFILLED':
+      return {
+        status: 'idle',
+        auth: action.payload,
+      }
+    case 'FETCH_LOGIN_REJECTED':
+      return {
+        ...state,
+        status: 'idle',
+      }
+    case 'LOGOUT':
+      return {
+        ...initialState,
+      }
+    default:
+      return state
   }
-)
-
-export const loginSlice = createSlice({
-  name: 'login',
-  initialState,
-  reducers: {
-    logout: (state) => {
-      state.auth.access_token = ''
-      state.auth.user = null
-    },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginAsync.pending, (state) => {
-        state.status = 'loading'
-      })
-      .addCase(loginAsync.fulfilled, (state, action) => {
-        state.status = 'idle'
-        state.auth = action.payload as Auth
-      })
-      .addCase(loginAsync.rejected, (state) => {
-        state.status = 'idle'
-      })
-  },
-})
+}
 
 export const selectToken = (state: RootState) => state.login.auth.access_token
 export const selectUser = (state: RootState) => state.login.auth.user
 
-export const { logout } = loginSlice.actions
-
-export default loginSlice.reducer
+export default loginReducer

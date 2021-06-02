@@ -1,19 +1,13 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
-import counterReducer from './reducers/counter'
+import { createStore, combineReducers, applyMiddleware, AnyAction } from 'redux'
+import thunk, { ThunkDispatch } from 'redux-thunk'
 import loginReducer from './reducers/login'
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-    login: loginReducer,
-  },
+const rootReducer = combineReducers({
+  login: loginReducer,
 })
 
-export type AppDispatch = typeof store.dispatch
+export const store = createStore(rootReducer, applyMiddleware(thunk))
+
 export type RootState = ReturnType<typeof store.getState>
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->
+export type AppDispatch = typeof store.dispatch &
+  ThunkDispatch<RootState, void, AnyAction>

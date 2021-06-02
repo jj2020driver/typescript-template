@@ -29,3 +29,8 @@ export interface LoginForm {
   email: string
   password: string
 }
+
+export interface Auth {
+  access_token: string
+  user: User | null
+}

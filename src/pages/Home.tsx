@@ -6,7 +6,8 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 
 import { useAppSelector, useAppDispatch } from '../redux/hooks'
-import { logout, selectToken, selectUser } from '../redux/reducers/login'
+import { logout } from '../redux/actions/login'
+import { selectToken, selectUser } from '../redux/reducers/login'
 
 const Home = () => {
   const dispatch = useAppDispatch()

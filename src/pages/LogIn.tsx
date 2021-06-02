@@ -7,9 +7,9 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useFormik } from 'formik'
 
-import { unwrapResult } from '@reduxjs/toolkit'
 import { useAppSelector, useAppDispatch } from '../redux/hooks'
-import { loginAsync, selectToken } from '../redux/reducers/login'
+import { selectToken } from '../redux/reducers/login'
+import { fetchLogin } from '../redux/actions/login'
 
 const LogIn = () => {
   const token = useAppSelector(selectToken)
@@ -24,10 +24,9 @@ const LogIn = () => {
     onSubmit: async (values, actions) => {
       actions.setSubmitting(true)
       try {
-        const result = await dispatch(loginAsync(values))
-        await unwrapResult(result)
+        await dispatch(fetchLogin(values))
       } catch (error) {
-        addToast(error.message, { appearance: 'error' })
+        addToast(error.response.data.message, { appearance: 'error' })
       } finally {
         actions.setSubmitting(false)
       }

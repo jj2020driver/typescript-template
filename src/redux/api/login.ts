@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { LoginForm, Auth } from '../../types'
 
 const apiService = axios.create({
   baseURL: 'http://65.0.121.216:81/api/',
@@ -7,8 +8,10 @@ const apiService = axios.create({
   },
 })
 
-export const fetchLogin = (credentials: object) => {
-  return new Promise<{ data: object }>((resolve, reject) => {
+export const fetchLoginAPI = (
+  credentials: LoginForm
+): Promise<{ data: Auth }> => {
+  return new Promise((resolve, reject) => {
     apiService.get('../sanctum/csrf-cookie').then(() => {
       apiService
         .post('/login', credentials)
