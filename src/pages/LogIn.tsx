@@ -22,14 +22,7 @@ const LogIn = () => {
       password: '',
     },
     onSubmit: async (values, actions) => {
-      actions.setSubmitting(true)
-      try {
-        await dispatch(fetchLogin(values))
-      } catch (error) {
-        addToast(error.response.data.message, { appearance: 'error' })
-      } finally {
-        actions.setSubmitting(false)
-      }
+      dispatch(fetchLogin(values))
     },
   })
 
