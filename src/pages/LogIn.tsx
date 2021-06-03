@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import Container from '@material-ui/core/Container'
@@ -6,13 +6,15 @@ import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useFormik } from 'formik'
+import axios from 'axios'
 
 import { useAppSelector, useAppDispatch } from '../redux/hooks'
-import { selectToken } from '../redux/reducers/login'
+import { selectToken, selectError } from '../redux/reducers/login'
 import { fetchLogin } from '../redux/actions/login'
 
 const LogIn = () => {
   const token = useAppSelector(selectToken)
+  const error = useAppSelector(selectError)
   const dispatch = useAppDispatch()
   const { addToast } = useToasts()
 
@@ -25,6 +27,13 @@ const LogIn = () => {
       dispatch(fetchLogin(values))
     },
   })
+
+  React.useEffect(() => {
+    if (error && axios.isAxiosError(error)) {
+      addToast(error?.response?.data.message, { appearance: 'error' })
+      console.log(error?.response?.data.message)
+    }
+  }, [error, addToast])
 
   if (token) return <Redirect to="/home" />
 

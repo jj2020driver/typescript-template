@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux'
 import { Auth } from '../../types'
-import { put, takeEvery, call } from 'redux-saga/effects'
+import { put, takeEvery, call, StrictEffect } from 'redux-saga/effects'
 import {
   fetchLoginPending,
   fetchLoginFulfilled,
@@ -8,10 +8,12 @@ import {
 } from '../actions/login'
 import { fetchLoginAPI } from '../api/login'
 
-export function* loginAsync(action: AnyAction): Generator {
+export function* loginAsync(
+  action: AnyAction
+): Generator<StrictEffect, void, { data: Auth }> {
   try {
     yield put(fetchLoginPending())
-    const response: any = yield call(fetchLoginAPI, action.payload)
+    const response = yield call(fetchLoginAPI, action.payload)
     yield put(fetchLoginFulfilled(response.data))
   } catch (error) {
     yield put(fetchLoginRejected(error))
@@ -20,8 +22,4 @@ export function* loginAsync(action: AnyAction): Generator {
 
 export function* watchLoginAsync() {
   yield takeEvery('FETCH_LOGIN', loginAsync)
-}
-
-export default function* rootSaga() {
-  yield watchLoginAsync()
 }

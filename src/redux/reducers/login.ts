@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { AnyAction, Reducer } from 'redux'
 import { Auth } from '../../types'
 
@@ -5,6 +6,7 @@ import type { RootState } from '../store'
 interface Login {
   auth: Auth
   status: 'idle' | 'loading' | 'failed'
+  error: AxiosError | Error | null
 }
 
 const initialState: Login = {
@@ -13,6 +15,7 @@ const initialState: Login = {
     user: null,
   },
   status: 'idle',
+  error: null,
 }
 
 const loginReducer: Reducer<Login, AnyAction> = (
@@ -24,16 +27,19 @@ const loginReducer: Reducer<Login, AnyAction> = (
       return {
         ...state,
         status: 'loading',
+        error: null,
       }
     case 'FETCH_LOGIN_FULFILLED':
       return {
-        status: 'idle',
         auth: action.payload,
+        status: 'idle',
+        error: null,
       }
     case 'FETCH_LOGIN_REJECTED':
       return {
         ...state,
         status: 'idle',
+        error: action.payload,
       }
     case 'LOGOUT':
       return {
@@ -46,5 +52,6 @@ const loginReducer: Reducer<Login, AnyAction> = (
 
 export const selectToken = (state: RootState) => state.login.auth.access_token
 export const selectUser = (state: RootState) => state.login.auth.user
+export const selectError = (state: RootState) => state.login.error
 
 export default loginReducer
