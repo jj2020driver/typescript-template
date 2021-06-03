@@ -52,6 +52,7 @@ const loginReducer: Reducer<Login, AnyAction> = (
 
 export const selectToken = (state: RootState) => state.login.auth.access_token
 export const selectUser = (state: RootState) => state.login.auth.user
+export const selectStatus = (state: RootState) => state.login.status
 export const selectError = (state: RootState) => state.login.error
 
 export default loginReducer

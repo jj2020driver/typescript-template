@@ -9,11 +9,12 @@ import { useFormik } from 'formik'
 import axios from 'axios'
 
 import { useAppSelector, useAppDispatch } from '../redux/hooks'
-import { selectToken, selectError } from '../redux/reducers/login'
+import { selectToken, selectStatus, selectError } from '../redux/reducers/login'
 import { fetchLogin } from '../redux/actions/login'
 
 const LogIn = () => {
   const token = useAppSelector(selectToken)
+  const status = useAppSelector(selectStatus)
   const error = useAppSelector(selectError)
   const dispatch = useAppDispatch()
   const { addToast } = useToasts()
@@ -31,7 +32,6 @@ const LogIn = () => {
   React.useEffect(() => {
     if (error && axios.isAxiosError(error)) {
       addToast(error?.response?.data.message, { appearance: 'error' })
-      console.log(error?.response?.data.message)
     }
   }, [error, addToast])
 
@@ -70,6 +70,7 @@ const LogIn = () => {
                   variant="contained"
                   disabled={
                     formik.isSubmitting ||
+                    status === 'loading' ||
                     (Boolean(formik?.submitCount) && !formik.isValid)
                   }
                 >
